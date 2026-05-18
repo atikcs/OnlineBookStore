@@ -1,0 +1,115 @@
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+padding:10px 60px;
+background:#f8f8f8;
+}
+
+.topbar a{
+margin-left:20px;
+text-decoration:none;
+color:black;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:white;
+}
+
+.logo{
+font-size:35px;
+font-weight:bold;
+color:#0a4fb5;
+}
+
+.search{
+display:flex;
+width:45%;
+}
+
+.search input{
+width:100%;
+padding:12px;
+border:1px solid #ddd;
+}
+
+.search button{
+padding:12px 25px;
+background:#0a4fb5;
+color:white;
+border:none;
+}
+
+.menu{
+background:#0a4fb5;
+padding:18px;
+}
+
+.menu a{
+color:white;
+margin-right:25px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:30px;
+padding:40px;
+background:white;
+border-radius:15px;
+}
+
+.hero h1{
+font-size:50px;
+margin:0;
+}
+
+.hero h2{
+font-size:60px;
+color:red;
+}
+
+.hero button{
+padding:15px 30px;
+background:#0a4fb5;
+border:none;
+color:white;
+border-radius:10px;
+}
+
+.book-grid{
+display:grid;
+grid-template-columns:
+repeat(4,1fr);
+
+gap:20px;
+padding:30px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:
+0 2px 10px rgba(0,0,0,.1);
+}
+
+.card button{
+width:100%;
+padding:12px;
+background:#0a4fb5;
+color:white;
+border:none;
+}

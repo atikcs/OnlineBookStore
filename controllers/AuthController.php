@@ -15,7 +15,9 @@ $userModel=
 new User($pdo);
 
 
-/* CSRF */
+/* ======================
+CSRF
+====================== */
 
 if(
 isset($_POST['csrf']) &&
@@ -23,15 +25,17 @@ isset($_SESSION['csrf']) &&
 $_POST['csrf']!==$_SESSION['csrf']
 )
 {
+
 die(
 "Invalid CSRF token"
 );
+
 }
 
 
 
 /* ======================
-   REGISTRATION
+REGISTRATION
 ====================== */
 
 if(
@@ -67,8 +71,6 @@ $_POST['role'];
 
 
 
-/* validation */
-
 if(
 !filter_var(
 $email,
@@ -86,6 +88,7 @@ exit();
 }
 
 
+
 if(
 strlen($password)<8
 )
@@ -101,7 +104,7 @@ exit();
 
 
 
-/* already exists */
+/* email exists */
 
 $existing=
 $userModel
@@ -125,7 +128,7 @@ exit();
 
 
 
-/* register */
+/* create account */
 
 $userModel
 ->register(
@@ -140,7 +143,6 @@ $role
 );
 
 
-/* REDIRECT HERE */
 
 header(
 "Location:../views/auth/login.php?success=1"
@@ -153,8 +155,9 @@ exit();
 
 
 
+
 /* ======================
-   LOGIN
+LOGIN
 ====================== */
 
 if(
@@ -177,6 +180,7 @@ $userModel
 ->findByEmail(
 $email
 );
+
 
 
 if(
@@ -223,7 +227,7 @@ time()+86400*30,
 
 
 
-/* role redirect */
+/* admin/customer redirect */
 
 if(
 $_SESSION['role']=="admin"
@@ -259,6 +263,90 @@ header(
 exit();
 
 }
+
+}
+
+
+
+
+/* ======================
+UPDATE PROFILE
+====================== */
+
+if(
+isset($_POST['updateProfile'])
+)
+{
+
+$userModel
+->updateProfile(
+
+$_SESSION['user_id'],
+
+trim($_POST['name']),
+
+trim($_POST['email']),
+
+trim($_POST['address']),
+
+trim($_POST['phone'])
+
+);
+
+
+$_SESSION['name']
+=
+$_POST['name'];
+
+
+header(
+"Location:../admin/profile.php?updated=1"
+);
+
+exit();
+
+}
+
+
+
+/* ======================
+CHANGE PASSWORD
+====================== */
+
+if(
+isset($_POST['changePassword'])
+)
+{
+
+if(
+strlen($_POST['password'])<8
+)
+{
+
+header(
+"Location:../admin/profile.php?error=password"
+);
+
+exit();
+
+}
+
+
+$userModel
+->changePassword(
+
+$_SESSION['user_id'],
+
+$_POST['password']
+
+);
+
+
+header(
+"Location:../admin/profile.php?password=1"
+);
+
+exit();
 
 }
 

@@ -63,9 +63,7 @@ $total=0;
 <head>
 
 <title>
-
 Checkout
-
 </title>
 
 <style>
@@ -97,20 +95,10 @@ background:white;
 
 padding:30px;
 
-border-radius:12px;
+border-radius:15px;
 
-}
-
-.row{
-
-display:flex;
-
-justify-content:space-between;
-
-padding:12px 0;
-
-border-bottom:
-1px solid #eee;
+box-shadow:
+0 4px 15px rgba(0,0,0,.08);
 
 }
 
@@ -119,15 +107,19 @@ select{
 
 width:100%;
 
-padding:12px;
+padding:15px;
 
 margin-top:10px;
 
-margin-bottom:20px;
+margin-bottom:15px;
 
 border:1px solid #ddd;
 
 border-radius:8px;
+
+font-size:15px;
+
+box-sizing:border-box;
 
 }
 
@@ -149,16 +141,51 @@ font-size:16px;
 
 cursor:pointer;
 
+font-weight:bold;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+background:#163d82;
+
+}
+
+.row{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:15px 0;
+
+border-bottom:
+1px solid #eee;
+
 }
 
 .total{
 
-font-size:24px;
+font-size:28px;
 
 font-weight:bold;
 
 margin-top:20px;
 
+color:#1d4fa5;
+
+}
+
+.paymentBox{
+
+margin-top:15px;
+
+}
+
+h2{
+margin-bottom:20px;
 }
 
 </style>
@@ -172,56 +199,52 @@ margin-top:20px;
 <div class="left">
 
 <h2>
-
 Shipping Details
-
 </h2>
 
 
 <input
-
 id="address"
-
 placeholder=
 "Enter shipping address"
-
 required>
 
 
 <select
-id="payment">
+id="paymentMethod">
 
 <option value="">
-
-Select Payment
-
+Select Payment Method
 </option>
 
-<option>
-
+<option value="Cash On Delivery">
 Cash On Delivery
-
 </option>
 
-<option>
-
-Bkash
-
+<option value="bKash">
+bKash
 </option>
 
-<option>
-
+<option value="Nagad">
 Nagad
-
 </option>
 
-<option>
+<option value="Credit Card">
+Credit Card
+</option>
 
-Card
-
+<option value="Bank Transfer">
+Bank Transfer
 </option>
 
 </select>
+
+
+<div
+id="paymentFields"
+class="paymentBox">
+
+</div>
 
 
 <button
@@ -234,9 +257,11 @@ Place Order
 
 <div
 id="msg"
+
 style="
 margin-top:20px;
 font-weight:bold;
+color:green;
 ">
 
 </div>
@@ -248,9 +273,7 @@ font-weight:bold;
 <div class="right">
 
 <h2>
-
 Order Summary
-
 </h2>
 
 
@@ -318,7 +341,9 @@ $sub;
 
 Total:
 ৳<?php
-echo $total;?>
+echo
+$total;
+?>
 
 </div>
 
@@ -340,6 +365,105 @@ echo $total;
 
 <script>
 
+const method=
+document.getElementById(
+"paymentMethod"
+);
+
+const fields=
+document.getElementById(
+"paymentFields"
+);
+
+
+method.addEventListener(
+"change",
+
+function()
+{
+
+let p=
+this.value;
+
+fields.innerHTML="";
+
+
+if(
+p=="bKash"
+||
+p=="Nagad"
+)
+{
+
+fields.innerHTML=`
+
+<input
+type="text"
+placeholder="Enter Mobile Number"
+id="mobile">
+
+<input
+type="text"
+placeholder="Transaction ID"
+id="trx">
+
+`;
+
+}
+
+
+
+else if(
+p=="Credit Card"
+)
+{
+
+fields.innerHTML=`
+
+<input
+type="text"
+placeholder="Card Number">
+
+<div style="
+display:flex;
+gap:10px;
+">
+
+<input
+placeholder="MM/YY">
+
+<input
+placeholder="CVV">
+
+</div>
+
+`;
+
+}
+
+
+
+else if(
+p=="Bank Transfer"
+)
+{
+
+fields.innerHTML=`
+
+<input
+type="text"
+placeholder="Bank Account Number">
+
+`;
+
+}
+
+});
+
+
+
+
+
 function checkout()
 {
 
@@ -356,7 +480,7 @@ let payment=
 
 document
 .getElementById(
-"payment"
+"paymentMethod"
 )
 .value;
 
@@ -435,6 +559,7 @@ r=>r.json()
 
 .then(data=>{
 
+
 if(
 data.success
 )
@@ -447,7 +572,7 @@ document
 
 .innerHTML=
 
-"Order placed successfully";
+"Order placed successfully ✔";
 
 
 setTimeout(
@@ -461,6 +586,7 @@ window.location=
 );
 
 }
+
 else{
 
 alert(

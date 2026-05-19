@@ -98,12 +98,57 @@ color:white;
 
 display:flex;
 justify-content:space-between;
+align-items:center;
+
+}
+
+.left{
+
+font-size:24px;
+font-weight:bold;
+
+}
+
+.right{
+
+display:flex;
+align-items:center;
+gap:20px;
+
 }
 
 .top a{
+
 color:white;
 text-decoration:none;
-margin-left:20px;
+font-weight:bold;
+
+padding:10px 15px;
+
+border-radius:8px;
+
+transition:.3s;
+
+}
+
+.top a:hover{
+
+background:rgba(255,255,255,.2);
+
+}
+
+.admin-name{
+
+background:white;
+
+color:#1d4fa5;
+
+padding:8px 15px;
+
+border-radius:20px;
+
+font-weight:bold;
+
 }
 
 .wrap{
@@ -132,12 +177,26 @@ box-shadow:
 
 text-align:center;
 
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-5px);
+
 }
 
 .card h1{
 
 font-size:40px;
 color:#1d4fa5;
+
+}
+
+.card h3{
+
+color:#555;
 
 }
 
@@ -149,14 +208,23 @@ color:#1d4fa5;
 
 <div class="top">
 
-<div>
+<div class="left">
 
-Admin Dashboard
+📊 Admin Dashboard
 
 </div>
 
 
-<div>
+<div class="right">
+
+<div class="admin-name">
+
+<?php
+echo $_SESSION['name'];
+?>
+
+</div>
+
 
 <a href="books.php">
 
@@ -164,17 +232,27 @@ Books
 
 </a>
 
+
 <a href="users.php">
 
 Users
 
 </a>
 
+
 <a href="orders.php">
 
 Orders
 
 </a>
+
+
+<a href="profile.php">
+
+Profile
+
+</a>
+
 
 <a href="../logout.php">
 

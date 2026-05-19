@@ -119,6 +119,85 @@ PDO::FETCH_ASSOC
 
 
 
+/* UPDATE PROFILE */
+
+public function updateProfile(
+$id,
+$name,
+$email,
+$address,
+$phone
+)
+{
+
+$stmt=
+$this->pdo->prepare(
+
+"UPDATE users
+
+SET
+
+name=?,
+email=?,
+address=?,
+phone=?
+
+WHERE id=?"
+
+);
+
+return
+$stmt->execute([
+
+$name,
+$email,
+$address,
+$phone,
+$id
+
+]);
+
+}
+
+
+
+/* CHANGE PASSWORD */
+
+public function changePassword(
+$id,
+$password
+)
+{
+
+$hash=
+password_hash(
+$password,
+PASSWORD_DEFAULT
+);
+
+$stmt=
+$this->pdo->prepare(
+
+"UPDATE users
+
+SET password_hash=?
+
+WHERE id=?"
+
+);
+
+return
+$stmt->execute([
+
+$hash,
+$id
+
+]);
+
+}
+
+
+
 /* ALL CUSTOMERS */
 
 public function getCustomers()
@@ -166,4 +245,5 @@ $id
 }
 
 }
+
 ?>

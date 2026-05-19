@@ -150,10 +150,8 @@ Online Book Store
 </div>
 
 <div>
-<a href="#">
-
+<a href="helpCenter.php">
 Help Center
-
 </a>
 
 
